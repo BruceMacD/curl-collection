@@ -1,0 +1,85 @@
+# @name Variables
+@baseUrl = http://127.0.0.1:11434
+@model = llama3.2
+
+### No model
+POST {{baseUrl}}/api/generate
+Content-Type: application/json
+
+{}
+
+### Basic generate request
+POST {{baseUrl}}/api/generate
+Content-Type: application/json
+
+{
+  "model": "{{model}}",
+  "prompt": "how are you?",
+  "system": "system message",
+  "stream": true
+}
+
+### Basic generate request with context
+POST {{baseUrl}}/api/generate
+Content-Type: application/json
+
+{
+  "model": "{{model}}",
+  "prompt": "what did I just ask?",
+  "context": [733, 16289, 28793, 28705, 2079, 349, 272, 7212, 5045, 28804, 733, 28748, 16289, 28793, 13, 1014, 7212, 8045, 5045, 2940, 298, 264, 20757, 1987, 8952, 291, 956, 21635, 28725, 690, 12022, 739, 2061, 477, 272, 4376, 791, 9664, 395, 12160, 21649, 297, 8599, 28742, 28713, 13789, 28723, 8836, 2061, 659, 264, 19367, 275, 26795, 821, 799, 9304, 304, 752, 270, 1532, 680, 5061, 28725, 579, 378, 349, 680, 3917, 298, 4563, 813, 2282, 477, 544, 14278, 28723, 1136, 264, 1204, 28725, 272, 7212, 8045, 5045, 1938, 264, 3081, 1370, 28723],
+  "stream": true
+}
+
+### Send a raw generation request
+POST {{baseUrl}}/api/generate
+Content-Type: application/json
+
+{
+  "model": "{{model}}",
+  "prompt": "[INST] This is awesome! [/INST]\nPostive[INST] This is bad! [/INST]\nNegative[INST] I love this movie [/INST]\nPositive[INST] I dislike this book [/INST]\n",
+  "raw": true,
+  "stream": false
+}
+
+### Template
+POST {{baseUrl}}/api/generate
+Content-Type: application/json
+
+{
+  "model": "{{model}}",
+  "prompt": "<|im_start|>system\nYou are an assistant for question-answering tasks.<|im_end|>\n<|im_start|>user\nQuestion: What are the advantages for Aladin??\nContext: Some context here<|im_end|>\n<|im_start|>assistant Answer:",
+  "stream": false,
+  "options": {
+    "seed": 1,
+    "stop": [
+      "<|im_start|>",
+      "<|im_end|>"
+    ]
+  }
+}
+
+### Generate with options
+POST {{baseUrl}}/api/generate
+Content-Type: application/json
+
+{
+  "model": "{{model}}",
+  "prompt": "hello",
+  "options": {
+    "num_predict": 10
+  }
+}
+
+### Fill in the middle
+POST {{baseUrl}}/api/generate
+Content-Type: application/json
+
+{
+  "model": "{{model}}",
+  "prompt": "def compute_gcd(a, b):",
+  "suffix": "    return result",
+  "options": {
+    "temperature": 0
+  },
+  "stream": false
+}

@@ -1,0 +1,41 @@
+# @name Variables
+@baseUrl = http://127.0.0.1:11434
+@model = llama3.2
+
+### Create a model
+# @name createModel
+POST {{baseUrl}}/api/create
+Content-Type: application/json
+
+{
+  "name": "{{model}}",
+  "path": "/Users/bruce/models/nous-capybara/Modelfile"
+}
+
+### Create a model directly
+POST {{baseUrl}}/api/create
+Content-Type: application/json
+
+{
+  "model": "{{model}}",
+  "modelfile": """
+  FROM llama2
+  SYSTEM \"you are mario\"
+  """
+}
+
+### Show a model
+POST {{baseUrl}}/api/show
+Content-Type: application/json
+
+{
+  "name": "{{model}}"
+}
+
+### Pull a model
+POST {{baseUrl}}/api/pull
+Content-Type: application/json
+
+{
+  "name": "{{model}}"
+}

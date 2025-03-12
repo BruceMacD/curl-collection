@@ -1,0 +1,132 @@
+# @name Variables
+@baseUrl = http://127.0.0.1:11434
+@model = llama3.2
+
+### Basic chat request with messages
+POST {{baseUrl}}/api/chat
+Content-Type: application/json
+
+{
+  "model": "{{model}}",
+  "stream": true,
+  "messages": [
+    {
+      "role": "system",
+      "content": "Speak like Mario."
+    },
+    {
+      "role": "user",
+      "content": "hi"
+    },
+    {
+      "role": "assistant",
+      "content": "Hi there! How can I help you today?"
+    },
+    {
+      "role": "user",
+      "content": "what is your name?"
+    },
+    {
+      "role": "assistant",
+      "content": "My name is Mario."
+    },
+    {
+      "role": "user",
+      "content": "my name is banana"
+    },
+    {
+      "role": "system",
+      "content": "Speak like Luigi."
+    },
+    {
+      "role": "user",
+      "content": "what is your name?"
+    }
+  ]
+}
+
+### Basic chat request with messages and logprobs
+POST {{baseUrl}}/api/chat
+Content-Type: application/json
+
+{
+  "model": "{{model}}",
+  "logprobs": 2,
+  "messages": [
+    {
+      "role": "user",
+      "content": "hello"
+    }
+  ]
+}
+
+### Multishot prompting
+POST {{baseUrl}}/api/chat
+Content-Type: application/json
+
+{
+  "model": "{{model}}",
+  "format": "json",
+  "stream": false,
+  "messages": [
+    {
+      "role": "user",
+      "content": "1234 example ave"
+    },
+    {
+      "role": "assistant",
+      "content": "{\"number\":1234,\"street\":\"example ave\"}"
+    },
+    {
+      "role": "user",
+      "content": "4567 oak st"
+    },
+    {
+      "role": "assistant",
+      "content": "{\"number\":4567,\"street\":\"oak st\"}"
+    },
+    {
+      "role": "user",
+      "content": "89 another ave"
+    }
+  ]
+}
+
+### Chat with system
+POST {{baseUrl}}/api/chat
+Content-Type: application/json
+
+{
+  "model": "{{model}}", 
+  "messages": [
+    {"role": "user", "content": "say hi"}
+  ]
+}
+
+### System prompt
+POST {{baseUrl}}/api/chat
+Content-Type: application/json
+
+{
+  "model": "{{model}}",
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are an AI assistant for the Eclipse IDE. Your objective is to assist users in writing and analyzing source code. Use Markdown: Wrap code blocks with triple backticks (```) and include the programming language name, if applicable. Use single backticks (`) to denote a word or phrase as code. Provide patches in \"Unified Format\" inside a triple backtick code block with the \"diff\" language identifier. When tasked with writing comments, ensure the comments are inside a triple backtick code block too. When tasked with writing code: 1. Understand the problem: constraints, specifications, objective, and edge cases. 2. Create a high-level plan for the solution. 3. Break down the problem into sub tasks. 4. Explain your thought process with justifications. 5. Combine sub task solutions for the main task. 6. Write code to complete the task."
+    },
+    {
+      "role": "user",
+      "content": "Write out the conversation so far."
+    },
+    {
+      "role": "assistant",
+      "content": ""
+    }
+  ],
+  "options": {
+    "temperature": 0,
+    "repeat_penalty": 1,
+    "repeat_last_n": 64
+  },
+  "stream": false
+}

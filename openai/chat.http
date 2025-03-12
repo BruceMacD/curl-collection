@@ -1,0 +1,15 @@
+### Basic Chat with logprobs
+curl https://api.openai.com/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer {{$dotenv OPENAI_KEY}}" \
+  -d '{
+    "model": "gpt-4o-mini",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Hello!"
+      }
+    ],
+    "stream": true,
+    "logprobs": true
+  }'

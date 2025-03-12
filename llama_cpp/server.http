@@ -1,0 +1,44 @@
+# Text completion endpoint - generates text from a prompt
+### completion
+curl http://127.0.0.1:8080/completion \
+  -X POST \
+  -H "Content-Type: application/json" \
+  -d '{
+  "prompt": "why is the sky blue?"
+}'
+
+# Convert token IDs back to text
+### detokenize
+curl http://127.0.0.1:8080/detokenize \
+  -X POST \
+  -H "Content-Type: application/json" \
+  -d '{
+  "tokens": [1, 2079, 349, 272, 7212, 5045, 28804]
+}'
+
+# OpenAI-compatible chat completion endpoint
+### openai completion
+curl http://127.0.0.1:8080/v1/chat/completions \
+  -X POST \
+  -H "Content-Type: application/json" \
+  -d '{
+  "model": "gpt-3.5-turbo",
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are a helpful assistant."
+    },
+    {
+      "role": "user",
+      "content": "Hello!"
+    },
+    {
+      "role": "assisant",
+      "content": "Hello!"
+    },
+    {
+      "role": "user",
+      "content": "sup!"
+    }
+  ]
+}'

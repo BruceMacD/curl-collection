@@ -1,0 +1,30 @@
+# @name Variables
+@baseUrl = http://127.0.0.1:11434
+@model = nomic-embed-text
+
+### Load a model
+POST {{baseUrl}}/api/embeddings
+Content-Type: application/json
+
+{
+  "model": "{{model}}",
+  "prompt": "test"
+}
+
+### Create embedding
+POST {{baseUrl}}/api/embed
+Content-Type: application/json
+
+{
+  "model": "{{model}}", 
+  "input": "hello"
+}
+
+### Create batch embeddings
+POST {{baseUrl}}/api/embed
+Content-Type: application/json
+
+{
+  "model": "{{model}}", 
+  "input" : [ "HELLO", "WORLD" ]
+}

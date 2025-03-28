@@ -1,6 +1,6 @@
 # @name Variables
 @baseUrl = http://127.0.0.1:11434
-@model = llama3.2
+@model = gemma3:4b
 
 ### Basic chat request with messages
 POST {{baseUrl}}/api/chat
@@ -51,7 +51,6 @@ Content-Type: application/json
 
 {
   "model": "{{model}}",
-  "logprobs": 2,
   "messages": [
     {
       "role": "user",
@@ -92,17 +91,6 @@ Content-Type: application/json
   ]
 }
 
-### Chat with system
-POST {{baseUrl}}/api/chat
-Content-Type: application/json
-
-{
-  "model": "{{model}}", 
-  "messages": [
-    {"role": "user", "content": "say hi"}
-  ]
-}
-
 ### System prompt
 POST {{baseUrl}}/api/chat
 Content-Type: application/json
@@ -127,6 +115,24 @@ Content-Type: application/json
     "temperature": 0,
     "repeat_penalty": 1,
     "repeat_last_n": 64
+  },
+  "stream": false
+}
+
+### Limit number generated
+POST {{baseUrl}}/api/chat
+Content-Type: application/json
+
+{
+  "model": "{{model}}",
+  "messages": [
+    {
+      "role": "user",
+      "content": "Hello!"
+    }
+  ],
+  "options": {
+    "num_predict": 1
   },
   "stream": false
 }

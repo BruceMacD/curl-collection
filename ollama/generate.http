@@ -1,6 +1,7 @@
 # @name Variables
 @baseUrl = http://127.0.0.1:11434
-@model = llama3.2
+@model = gemma3:4b
+@code_model = codellama:code
 
 ### No model
 POST {{baseUrl}}/api/generate
@@ -75,7 +76,7 @@ POST {{baseUrl}}/api/generate
 Content-Type: application/json
 
 {
-  "model": "{{model}}",
+  "model": "{{code_model}}",
   "prompt": "def compute_gcd(a, b):",
   "suffix": "    return result",
   "options": {

@@ -17,7 +17,6 @@ Content-Type: application/json
   "model": "{{model}}",
   "prompt": "how are you?",
   "system": "system message",
-  "stream": true
 }
 
 ### Basic generate request with context

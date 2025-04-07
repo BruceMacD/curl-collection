@@ -1,6 +1,6 @@
 # @name Variables
 @baseUrl = http://127.0.0.1:11434
-@model = llama3.2
+@model = gemma3
 
 ### Create a model
 # @name createModel
@@ -34,6 +34,19 @@ Content-Type: application/json
 
 ### Pull a model
 POST {{baseUrl}}/api/pull
+Content-Type: application/json
+
+{
+  "name": "{{model}}"
+}
+
+### List models
+# @name listModels
+GET {{baseUrl}}/api/tags
+
+### Show model
+# @name showModel
+POST {{baseUrl}}/api/show
 Content-Type: application/json
 
 {
